@@ -3,12 +3,16 @@
 
 using namespace std;
 
+int facing;
+
+void isLand(next_r, next_c);
+
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int n, m, facing, cr, cc, cnt = 0;
+    int n, m, cr, cc, cnt = 0;
     int go_dir[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
     int back_dir[4][2] = {{1, 0}, {0, -1}, {-1, 0}, {0, 1}};
 
@@ -27,10 +31,7 @@ int main()
         int next_c = cc + go_dir[next_face][1];
         if (game_map[next_r][next_c] == 0)
         {
-            cr = next_r;
-            cc = next_c;
-            facing = next_face;
-            cnt++;
+            isLand(next_r, next_c);
             continue;
         }
         while (next_face != facing)
@@ -40,10 +41,7 @@ int main()
             next_c = cc + go_dir[next_face][1];
             if (game_map[next_r][next_c] == 0)
             {
-                cr = next_r;
-                cc = next_c;
-                facing = next_face;
-                cnt++;
+                isLand(next_r, next_c, next_face);
                 break;
             }
         }
@@ -59,10 +57,7 @@ int main()
                 next_c = cc + go_dir[next_face][1];
                 if (game_map[next_r][next_c] == 0)
                 {
-                    cr = next_r;
-                    cc = next_c;
-                    facing = next_face;
-                    cnt++;
+                    isLand(next_r, next_c, next_face);
                     break;
                 }
             }
@@ -71,4 +66,13 @@ int main()
         }
     }
     cout << cnt;
+}
+void isLand(next_r, next_c, next_face)
+{
+    cr = next_r;
+    cc = next_c;
+    facing = next_face;
+    game_map[next_r][next_c] = 1;
+    cnt++;
+    continue;
 }
